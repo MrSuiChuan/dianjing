@@ -1,0 +1,4 @@
+interface:
+  display_name: "画龙点睛·爆款标题生成"
+  short_description: "一句话选题+平台目标,批量产出适配的爆款标题;真实数字、口语反差、金句可转发"
+  default_prompt: "用 $dianjing 把我的选题变成 10 条适配公众号的爆款标题。"
