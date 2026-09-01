@@ -7,13 +7,12 @@
 - `SKILL.md` — 主指令：触发条件、平台适配、5 类公式定位、自检与发布后回填
 - `references/title_formulas.md` — 5 类公式 + 高赞 10 式 + 风格 DNA + 样本 + 生成 Prompt
 - `references/title_index.md` — 610 条爆款标题纯列表（去重，按原时间倒序）
-- `agents/openai.yaml` — UI 元数据（display_name 等）
-- `dist/dianjing.skill` — 可分发包（zip）
+- `agents/openai.yaml` — UI 元数据（display_name 等，可选）
 
 ## 安装
 
-- 方式一：克隆/拷贝本仓库到 `~/.codex/skills/dianjing/`（或 `$CODEX_HOME/skills/dianjing/`）
-- 方式二：直接导入 `dist/dianjing.skill`
+- 克隆/拷贝本仓库到 `~/.codex/skills/dianjing/`（或 `$CODEX_HOME/skills/dianjing/`）
+- 需要 `.skill` 分发包时，用 skill-creator 的打包流程手动生成即可（`dist/` 不入库）
 
 调用：把一句话选题发给它即可，可附平台与目标（如"公众号、涨粉"）。机器名 `dianjing`，显示名「画龙点睛·爆款标题生成」。
 
