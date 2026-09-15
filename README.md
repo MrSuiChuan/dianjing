@@ -102,6 +102,8 @@ references/handoff.md             与 hualong 的交接契约(title-brief 与验
 scripts/title_overlap_check.py    标题查重
 scripts/promise_check.py          标题承诺兑现检测(标题 × 正文)
 scripts/title_feedback.py         发布后回填与复盘
+scripts/e2e_check.py              端到端回归(四项检查 + 基线对比)
+tests/fixtures/                   回归夹具(3 正样本 + 1 反面样本)
 agents/openai.yaml                UI 元数据
 ```
 
@@ -115,6 +117,19 @@ agents/openai.yaml                UI 元数据
 局限也写在这里:赞数样本只覆盖 71%,相关性分析做了"同一年内排名"控制,但仍然是单账号、单平台(知乎)、词法特征。公众号和小红书的基线还没验证;账号权重、话题热度、发布时间的影响,标题层面解释不了。
 
 **结论分三档**:能当规则的只有"立场和冲突结构更多出现在头部""必须具体""不许撞车";字数、数字、问号属于无证据项;跨平台和跨垂类属于未验证项。
+
+## 回归测试
+
+改完 skill 之后跑一次,防止"改好一处、改坏另一处":
+
+```bash
+py -3 scripts/e2e_check.py                     # 与基线对比,有退化返回非零
+py -3 scripts/e2e_check.py --update-baseline    # 确认没问题后更新基线
+```
+
+夹具在 `tests/fixtures/`:3 个正样本(技术文两篇、人文文一篇)+ 1 个反面样本(典型 AI 通稿,应当被判 FAIL)。一次跑完四项检查——正文人味分、语料重合、标题承诺兑现、标题查重,并和 `tests/baseline.json` 对比。
+
+实测:3 个正样本人味分 92–100 全部 PASS,反面样本 40 分被判 FAIL;故意把基线改高后,回归检查正确报出"人味分 99 → 92"并返回非零。
 
 ## 说明
 

@@ -1,0 +1,28 @@
+{
+  "fixtures": [
+    {
+      "file": "tech-pipelines.md",
+      "mode": "tech",
+      "note": "真实成稿:介绍两个 skill 的文章,人味分 100",
+      "expect": {"style": "PASS", "overlap": "PASS", "promise": "WARN", "title_overlap": "PASS"}
+    },
+    {
+      "file": "tech-automation.md",
+      "mode": "tech",
+      "note": "技术文:三步把重复工作脚本化",
+      "expect": {"style": "PASS", "overlap": "PASS", "promise": "PASS", "title_overlap": "PASS"}
+    },
+    {
+      "file": "human-keyboard.md",
+      "mode": "human",
+      "note": "人文文:人物片段,短段节奏",
+      "expect": {"style": "PASS", "overlap": "PASS", "promise": "WARN", "title_overlap": "PASS"}
+    },
+    {
+      "file": "tech-slop.md",
+      "mode": "tech",
+      "note": "反面样本:典型 AI 通稿,风格检查必须判 FAIL",
+      "expect": {"style": "FAIL", "overlap": "PASS", "promise": "PASS", "title_overlap": "PASS"}
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "corpus": "C:\\Users\\wuzongyun\\Documents\\ChatGPT\\writing-corpus\\contents",
+  "index": "C:\\Users\\wuzongyun\\.codex\\skills\\dianjing\\references\\title_index.md",
+  "results": [
+    {
+      "fixture": "tech-pipelines.md",
+      "title": "我给自己搭了两条流水线:一条写正文,一条起标题",
+      "mode": "tech",
+      "style": {
+        "verdict": "PASS",
+        "score": 100,
+        "fail_items": [],
+        "notes": []
+      },
+      "overlap": {
+        "verdict": "PASS",
+        "max_match": 0
+      },
+      "promise": {
+        "verdict": "WARN",
+        "cover_all": 0.5,
+        "num_cover": null,
+        "reasons": [
+          "覆盖率 50% 未到理想线 65%"
+        ]
+      },
+      "title_overlap": {
+        "verdict": "PASS",
+        "max_match": 3
+      }
+    },
+    {
+      "fixture": "tech-automation.md",
+      "title": "我把每天重复的 3 件事,写成了一个本地脚本",
+      "mode": "tech",
+      "style": {
+        "verdict": "PASS",
+        "score": 92,
+        "fail_items": [],
+        "notes": [
+          "长段占比偏离该模式"
+        ]
+      },
+      "overlap": {
+        "verdict": "PASS",
+        "max_match": 0
+      },
+      "promise": {
+        "verdict": "PASS",
+        "cover_all": 0.714,
+        "num_cover": 1.0,
+        "reasons": []
+      },
+      "title_overlap": {
+        "verdict": "PASS",
+        "max_match": 4
+      }
+    },
+    {
+      "fixture": "human-keyboard.md",
+      "title": "那个坚持手写稿的人,昨天把键盘换回来了",
+      "mode": "human",
+      "style": {
+        "verdict": "PASS",
+        "score": 92,
+        "fail_items": [],
+        "notes": [
+          "长段占比偏离该模式"
+        ]
+      },
+      "overlap": {
+        "verdict": "PASS",
+        "max_match": 0
+      },
+      "promise": {
+        "verdict": "WARN",
+        "cover_all": 0.5,
+        "num_cover": null,
+        "reasons": [
+          "覆盖率 50% 未到理想线 65%"
+        ]
+      },
+      "title_overlap": {
+        "verdict": "PASS",
+        "max_match": 3
+      }
+    },
+    {
+      "fixture": "tech-slop.md",
+      "title": "AI 编程工具正在成为研发体系中不可或缺的重要组成部分",
+      "mode": "tech",
+      "style": {
+        "verdict": "FAIL",
+        "score": 40,
+        "fail_items": [
+          "段落中位长度",
+          "口语标记密度",
+          "硬禁词"
+        ],
+        "notes": [
+          "口语标记偏少",
+          "抽象名词偏多",
+          "命中硬禁词",
+          "长段占比偏离该模式",
+          "结构标记与该模式不符"
+        ]
+      },
+      "overlap": {
+        "verdict": "PASS",
+        "max_match": 0
+      },
+      "promise": {
+        "verdict": "PASS",
+        "cover_all": 1.0,
+        "num_cover": null,
+        "reasons": []
+      },
+      "title_overlap": {
+        "verdict": "PASS",
+        "max_match": 4
+      }
+    }
+  ]
+}
