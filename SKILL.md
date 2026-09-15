@@ -147,8 +147,9 @@ description: 生成文章标题(公众号/知乎/小红书)。当用户要写文
    - Top3 要过 `scripts/promise_check.py --title "…" --body 正文.md`:标题里的数字必须能在正文找到,关键词覆盖率 ≥45%(65% 以下记提醒)。
 5. **挑 Top 3**:从 10 条里选 3 条,各给一句可判定的推荐理由。如果 `scripts/title_feedback.py --report` 里某类机制已经攒到 3 条以上数据,按它排序,而不是凭感觉。
 6. **发布后回填**(可选但强烈建议):发出去 3 天后跑一次
-   `py -3 scripts/title_feedback.py --add --title "标题原文" --platform 公众号 --category "⑥批判冲突金句" --mechanism 立场 --impressions 12000 --clicks 900 --likes 120`。
-   攒够 10 条再跑 `--report`,你就有了自己账号的标题基线,而不是借用别人的。
+   `py -3 scripts/title_feedback.py --add --title "标题原文" --platform 公众号 --category "⑥批判冲突金句" --mechanism 立场 --body-mode tech --draft 草稿.md --impressions 12000 --clicks 900 --likes 120 --read-through 0.42`。
+   `--draft` 会自动算出正文人味分(本机装了 `hualong` 才行,也可以直接给 `--human-score`)。
+   攒够 10 条再跑 `--report`,能看到按机制、按正文模式,以及**"机制 × 模式"组合**的效果——这是唯一能校准配额的数据来源。
 
 ## 示例
 

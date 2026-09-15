@@ -74,12 +74,13 @@ Windows 是 `%USERPROFILE%\.codex\skills\dianjing\`,也可以直接拷目录。
 ```bash
 py -3 scripts/title_feedback.py --add --title "标题原文" --platform 公众号 \
     --category "⑥批判冲突金句" --mechanism 立场 \
-    --impressions 12000 --clicks 900 --likes 120
+    --body-mode tech --draft 草稿.md \
+    --impressions 12000 --clicks 900 --likes 120 --read-through 0.42
 
-py -3 scripts/title_feedback.py --report   # 按类别/机制/平台复盘
+py -3 scripts/title_feedback.py --report   # 按机制/正文模式/机制×模式复盘
 ```
 
-攒够 10 条以上,你就有自己账号的标题基线了。
+`--draft` 会自动调 hualong 的体检器算出正文人味分(也可以直接给 `--human-score`)。攒够 10 条以上,复盘里就会多出一张 **"传播机制 × 正文模式"** 的组合表——这是唯一能校准配额的依据。
 
 ## 和 hualong 怎么配合
 

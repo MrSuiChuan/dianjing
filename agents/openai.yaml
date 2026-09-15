@@ -1,4 +1,4 @@
 interface:
   display_name: "画龙点睛·标题生成"
   short_description: "一句话选题产出 10 条标题,6 类公式+信息量自检+撞车查重,不承诺流量"
-  default_prompt: "用 $dianjing 把我的选题变成 10 条适配公众号的标题。"
+  default_prompt: "用 $dianjing 把我的选题变成 10 条适配公众号的标题;如果正文已经写好,先按 handoff 契约核验承诺兑现。"
