@@ -41,6 +41,10 @@ def check(title, body):
     body_n = normalize(body)
     head = body_n[:max(int(len(body_n) * 0.25), 1)]
     keys = title_keys(title)
+    if len(keys) < 3:
+        return {"verdict": "N/A", "reasons": ["标题太短或几乎全英文,关键词覆盖率不适用"],
+                "cover_all": None, "cover_head": None, "num_cover": None,
+                "missing_keys": [], "missing_numbers": []}
     miss_all = sorted(g for g in keys if g not in body_n)
     miss_head = sorted(g for g in keys if g not in head)
     cover_all = 1 - len(miss_all) / len(keys) if keys else 1.0
@@ -75,6 +79,11 @@ def main():
     p = Path(args.body)
     body = p.read_text(encoding="utf-8") if p.exists() else args.body
     r = check(args.title, body)
+
+    if r["verdict"] == "N/A":
+        print(f"[不适用] {r['reasons'][0]}")
+        print("         短标题请人工确认:标题里的对象和数字,正文里有没有。")
+        sys.exit(3)
 
     if args.json:
         print(json.dumps({**r, "title": args.title}, ensure_ascii=False, indent=2))

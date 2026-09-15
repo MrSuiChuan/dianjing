@@ -82,6 +82,18 @@ py -3 scripts/title_feedback.py --report   # 按机制/正文模式/机制×模�
 
 `--draft` 会自动调 hualong 的体检器算出正文人味分(也可以直接给 `--human-score`)。攒够 10 条以上,复盘里就会多出一张 **"传播机制 × 正文模式"** 的组合表——这是唯一能校准配额的依据。
 
+**Windows 控制台如果中文乱码**,先执行 `$env:PYTHONIOENCODING='utf-8'` 再跑脚本。
+
+## 批次体检
+
+生成完 10 条之后,整批过一次:
+
+```bash
+py -3 scripts/batch_check.py 批次.md --platform 公众号
+```
+
+六项一起查:**条数 = 10、5 机制各 2 条、⑥批判冲突 ≥2 条、平台字数上限、批次内两两重复(4-gram 相似度 ≥0.40 报警)、与 610 条索引撞车**。
+
 ## 和 hualong 怎么配合
 
 | 场景 | 路径 |
@@ -101,6 +113,7 @@ references/title_index_top100.md  标题速查:按赞数 Top100 + 按机制精�
 references/title_index.md         610 条全量索引(仅在需要核对更多真实措辞时 grep)
 references/handoff.md             与 hualong 的交接契约(title-brief 与验收线)
 scripts/title_overlap_check.py    标题查重
+scripts/batch_check.py            批次体检(配额 / 内部重复 / 撞车)
 scripts/promise_check.py          标题承诺兑现检测(标题 × 正文)
 scripts/title_feedback.py         发布后回填与复盘
 scripts/e2e_check.py              端到端回归(四项检查 + 基线对比)

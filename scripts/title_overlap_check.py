@@ -88,6 +88,10 @@ def main():
         sys.exit(2)
 
     index_titles = load_index(args.index)
+    if not index_titles:
+        print(f"[错误] 索引里没有任何标题: {args.index}")
+        print("       路径写错或文件为空时,查重会全部放行,所以这里直接报错退出。")
+        sys.exit(2)
     results = [check(c, index_titles) for c in candidates]
     worst = max(results, key=lambda r: r["length"])
 

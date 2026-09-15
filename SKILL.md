@@ -128,8 +128,9 @@ description: 生成文章标题(公众号/知乎/小红书)。当用户要写文
 0. **先确认有没有正文、有没有 title-brief**:
    - 有 `title-brief`(hualong 的交接物,格式见 `references/handoff.md`)→ 直接用它,不必通读全文;
    - 只有正文 → 先读一遍,自己整理出钩子、数字、立场;
-   - 都没有 → 先定选题角度,并告诉用户"标题先行,正文后续必须兑现"。
-   无论哪种情况,**交付前都要用 `scripts/promise_check.py` 核验 Top3 标题**:标题里的数字必须 100% 出现在正文,关键词覆盖率不低于 45%。
+   - **只有选题、没有正文** → 没有正文就没有可兑现的东西,`promise_check` 不适用。
+     这种情况下交付一份「**待兑现清单**」:Top3 每条列出它承诺的数字 / 对象 / 判断,写明"正文必须写到这些",并提醒用户正文定稿后回来补跑一次 `promise_check`。**不要为了跑检查去编一段正文。**
+   有正文(或 title-brief)时,交付前用 `scripts/promise_check.py` 核验 Top3 标题:标题里的数字必须 100% 出现在正文,关键词覆盖率不低于 45%。
 1. **读 reference**(两份,分工不同):
    - `references/title_formulas.md`(**每次必读**):6 类公式 + 高赞爆款公式 + 风格 DNA + 样本 + 生成 Prompt。主弹药库,体量小。
    - `references/title_index_top100.md`(**默认读这份**):按赞数 Top100 + 按传播机制精选 + 按公式类别速查。生成时看它就够,16KB。
@@ -145,8 +146,9 @@ description: 生成文章标题(公众号/知乎/小红书)。当用户要写文
    - 有没有"浅谈/解析"等书面词?删掉换具象动词。
    - 像本人随口说的,还是像通稿?像通稿就加口语/反差。
    - 每条都要通过 `scripts/title_overlap_check.py`:连续重合 ≥10 字判 FAIL,必须换句式或换角度重写,只改标点不算。
-   - Top3 要过 `scripts/promise_check.py --title "…" --body 正文.md`:标题里的数字必须能在正文找到,关键词覆盖率 ≥45%(65% 以下记提醒)。
+   - 有正文时,Top3 要过 `scripts/promise_check.py --title "…" --body 正文.md`:标题里的数字必须能在正文找到,关键词覆盖率 ≥45%(65% 以下记提醒);没有正文则跳过这步,改为输出「待兑现清单」。
 5. **挑 Top 3**:从 10 条里选 3 条,各给一句可判定的推荐理由。如果 `scripts/title_feedback.py --report` 里某类机制已经攒到 3 条以上数据,按它排序,而不是凭感觉。
+   - 整批交付前跑 `scripts/batch_check.py 批次.md --platform 公众号`:条数、机制配额、⑥数量、平台字数、**批次内两两重复**、与索引撞车,六项一次查完。
 6. **发布后回填**(可选但强烈建议):发出去 3 天后跑一次
    `py -3 scripts/title_feedback.py --add --title "标题原文" --platform 公众号 --category "⑥批判冲突金句" --mechanism 立场 --body-mode tech --draft 草稿.md --impressions 12000 --clicks 900 --likes 120 --read-through 0.42`。
    `--draft` 会自动算出正文人味分(本机装了 `hualong` 才行,也可以直接给 `--human-score`)。

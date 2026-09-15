@@ -46,8 +46,11 @@ def load(path):
     return [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines() if l.strip()]
 
 
-def auto_human_score(draft_path):
-    """调用 hualong 的体检器算人味分(两种模式取较高者)。找不到就返回 None。"""
+def auto_human_score(draft_path, mode=""):
+    """调用 hualong 的体检器算人味分。给了 --body-mode 就按该模式算, 否则两模式取高(会偏高)。
+
+    交付时的口径是"按声明的模式算", 所以回填也要用同一个口径, 否则记录会失真。
+    """
     candidates = [os.environ.get("HUALONG_SKILL_DIR"),
                   Path.home() / ".codex" / "skills" / "hualong",
                   Path.home() / ".codex" / "skills" / "hualong" / "1.0.0"]
@@ -64,6 +67,8 @@ def auto_human_score(draft_path):
             if not prose:
                 return None
             m = sc.measure(prose, steps)
+            if mode in ("tech", "human"):
+                return sc.human_score(m, mode)[0]
             return max(sc.human_score(m, "tech")[0], sc.human_score(m, "human")[0])
         except Exception:
             return None
@@ -71,9 +76,24 @@ def auto_human_score(draft_path):
 
 
 def add(path, args):
+    # 数据合理性: 不合理的数据会污染复盘, 直接拒绝
+    problems = []
+    if args.impressions < 0 or args.clicks < 0 or args.likes < 0:
+        problems.append("曝光/点击/点赞不能是负数")
+    if args.impressions and args.clicks > args.impressions:
+        problems.append(f"点击数({args.clicks})大于曝光数({args.impressions})")
+    if args.read_through is not None and not (0 <= args.read_through <= 1):
+        problems.append(f"完读率应在 0–1 之间,当前 {args.read_through}")
+    if problems and not args.force:
+        print("[拒绝记录] 数据不合理:")
+        for p in problems:
+            print(f"  - {p}")
+        print("  确认数据无误可以加 --force 强制记录。")
+        sys.exit(2)
+
     score = args.human_score
     if score is None and args.draft:
-        score = auto_human_score(args.draft)
+        score = auto_human_score(args.draft, args.body_mode)
         if score is None:
             print("[提示] 没能自动算人味分(缺 --draft 或本机没有 hualong),可手动加 --human-score")
     row = {
@@ -208,6 +228,7 @@ def main():
     ap.add_argument("--read-through", type=float, default=None, help="完读率, 0–1")
     ap.add_argument("--date", default="")
     ap.add_argument("--notes", default="")
+    ap.add_argument("--force", action="store_true", help="数据被判定不合理时仍然记录")
     args = ap.parse_args()
 
     path = store_path()

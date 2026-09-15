@@ -21,12 +21,22 @@ DEFAULT_DIANJING = os.environ.get("DIANJING_SKILL_DIR") or Path.home() / ".codex
 
 
 def load_modules(hualong_dir, dianjing_dir):
+    for d, name in [(hualong_dir, "hualong"), (dianjing_dir, "dianjing")]:
+        if not Path(d).exists():
+            print(f"[错误] 找不到 {name} skill 目录: {d}")
+            print("       用 HUALONG_SKILL_DIR / DIANJING_SKILL_DIR 指定,或先安装另一个 skill。")
+            sys.exit(2)
     sys.path.insert(0, str(Path(hualong_dir) / "scripts"))
     sys.path.insert(0, str(Path(dianjing_dir) / "scripts"))
-    import style_check
-    import overlap_check
-    import promise_check
-    import title_overlap_check
+    try:
+        import style_check
+        import overlap_check
+        import promise_check
+        import title_overlap_check
+    except ImportError as e:
+        print(f"[错误] 加载检查模块失败: {e}")
+        print("       端到端回归需要同时装好 hualong 与 dianjing 两个 skill。")
+        sys.exit(2)
     return style_check, overlap_check, promise_check, title_overlap_check
 
 
