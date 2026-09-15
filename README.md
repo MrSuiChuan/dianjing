@@ -97,7 +97,8 @@ py -3 scripts/title_feedback.py --report   # 按机制/正文模式/机制×模�
 ```
 SKILL.md                          主指令:6 类公式、8 条 DNA、生成流程与自检
 references/title_formulas.md      公式库 + 样本 + 生成 Prompt(每次生成必读)
-references/title_index.md         610 条标题索引(按赞数 Top30 + 全量时间倒序)
+references/title_index_top100.md  标题速查:按赞数 Top100 + 按机制精选 + 按类别速查(默认读)
+references/title_index.md         610 条全量索引(仅在需要核对更多真实措辞时 grep)
 references/handoff.md             与 hualong 的交接契约(title-brief 与验收线)
 scripts/title_overlap_check.py    标题查重
 scripts/promise_check.py          标题承诺兑现检测(标题 × 正文)
