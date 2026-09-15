@@ -3,3 +3,7 @@ dist/
 
 # 运行时日志（MCP / 采集脚本），不入库
 logs/
+
+# Python 缓存
+__pycache__/
+*.pyc
