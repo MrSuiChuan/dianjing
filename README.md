@@ -21,6 +21,9 @@
 **5. 用完能自己校准。**
 `scripts/title_feedback.py` 用来回填发布后的曝光、点击、点赞,攒够数据就能按你自己账号的基线排序,而不是一直借用别人的。
 
+**6. 标题不能空口承诺。**
+和 [hualong](https://github.com/MrSuiChuan/hualong) 共用一份交接契约:正文定稿后产出 `title-brief`,标题里的每个数字都要能在正文找到。交付前用 `scripts/promise_check.py` 逐条核验 Top3——标题数字必须 100% 兑现,关键词覆盖率低于 45% 判不合格。
+
 ## 产出长什么样
 
 | # | 标题 | 传播机制 | 公式类型 | 钩子解读 |
@@ -78,13 +81,25 @@ py -3 scripts/title_feedback.py --report   # 按类别/机制/平台复盘
 
 攒够 10 条以上,你就有自己账号的标题基线了。
 
+## 和 hualong 怎么配合
+
+| 场景 | 路径 |
+| --- | --- |
+| 只出标题 | 有正文:dianjing → 逐条承诺检测;没正文:先定选题角度 |
+| 只写正文 | [hualong](https://github.com/MrSuiChuan/hualong) → 交付正文 + `title-brief` |
+| 完整链路 | hualong 写正文 → title-brief → dianjing 出 10 条 → promise_check 核验 Top3 → 发布 |
+
+契约细节(交接字段、验收线、标题先行的回环规则)全在 `references/handoff.md`。它解决的是实测里唯一有正向信号的环节:**标题和正文的一致性**(关键词覆盖率与点赞相关性 0.183,高于标题词法的 0.09 和正文风格的 0.14)。
+
 ## 目录
 
 ```
 SKILL.md                          主指令:6 类公式、8 条 DNA、生成流程与自检
 references/title_formulas.md      公式库 + 样本 + 生成 Prompt(每次生成必读)
 references/title_index.md         610 条标题索引(按赞数 Top30 + 全量时间倒序)
+references/handoff.md             与 hualong 的交接契约(title-brief 与验收线)
 scripts/title_overlap_check.py    标题查重
+scripts/promise_check.py          标题承诺兑现检测(标题 × 正文)
 scripts/title_feedback.py         发布后回填与复盘
 agents/openai.yaml                UI 元数据
 ```
